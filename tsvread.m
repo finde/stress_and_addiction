@@ -34,8 +34,20 @@ fclose(fid);
 
 numrows = 1:size(stuff,1);
 ind = cellfun( 'isclass', varargin, 'double' );
-if any( ind )
-    numrows = varargin{ind};
+
+if any( ind ) || ~isempty(strfind(varargin{end}, ':'))
+    ind = size(varargin, 2);
+end
+    
+if any( ind ) || ~isempty(strfind(varargin{end}, ':'))
+    %define range
+    if isnumeric(varargin{ind})
+        numrows = varargin{ind};
+    else
+        strArr = strrep(varargin{ind},'end',num2str(size(stuff,1)));
+        rangeArr = strsplit(strArr,':');
+        numrows = str2double(rangeArr{1}):str2double(rangeArr{2}):str2double(rangeArr{3});
+    end
     varargin(ind) = [];
     if numel(numrows) == 1
         numrows = 1:min(numrows, size( stuff, 1) );
