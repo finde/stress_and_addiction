@@ -1,0 +1,72 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="2721983231" file="/mnt/extWork/App/stress_and_addiction/app/Sad_and_Addiction.prj" location="/mnt/extWork/App/stress_and_addiction/app" name="Sad_and_Addiction" target="target.mlapps" target-name="Package App">
+    <param.appname>Sad_and_Addiction</param.appname>
+    <param.authnamewatermark>Finde</param.authnamewatermark>
+    <param.email />
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot>/tmp/tp24585a6b_d7ed_486f_9739_36f68e4eb1e5.png</param.screenshot>
+    <param.version>2.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>727745f9-d63f-44b8-951e-c730cc512675</param.guid>
+    <unset>
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/stress_addiction.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${MATLAB_ROOT}/stress_and_addiction/+sad/+Database/report.m</file>
+      <file>${MATLAB_ROOT}/stress_and_addiction/+sad/InitializeSADparams.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="${MATLAB_ROOT}/stress_and_addiction" name="app" optional="false">/mnt/extWork/App/stress_and_addiction/app</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/mnt/extWork/App</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>false</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>true</linux>
+      <solaris>false</solaris>
+      <osver>5.0.0-37-generic</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>glnxa64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

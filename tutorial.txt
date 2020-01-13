@@ -1,0 +1,87 @@
+% -------------------------------------------------------
+% Load data
+% -------------------------------------------------------
+% Params is all necessary settings included metadata for all participants
+
+params = sad.InitializeSADparams('Experiment_1')
+
+
+
+
+
+% -------------------------------------------------------
+% Show Statistics of selected participants
+% -------------------------------------------------------
+
+% Participants splited into 2 groups as follow
+% + Group 1: [Age between 20-40] and ["Standard Alcohol Unit (last 28 Days)" <= 14]
+% + Group 2: [Age between 20-40] and ["Standard Alcohol Unit (last 28 Days)" > 14]
+%
+% number 14 is the median of the selected participants' "Standard Alcohol Unit"
+
+sad.Database.report(params, [], 1)
+
+
+
+
+
+% -------------------------------------------------------
+% Get Participants for each Groups 
+% -------------------------------------------------------
+
+selected_data=params.data(params.data.Selected==true,:);
+group_1 = selected_data{selected_data.Group == 1, 'ID'}
+group_2 = selected_data{selected_data.Group == 2, 'ID'}
+
+
+
+
+% -------------------------------------------------------
+% Compute and Show ECG for specific participants 
+% -------------------------------------------------------
+% The R-Peaks detection is using Pan Tomkins Algorithm [source: https://www.robots.ox.ac.uk/~gari/teaching/cdt/A3/readings/ECG/Pan+Tompkins.pdf]
+% The code implementation of Pan Tomkins Algorithm is based on this paper [source: https://www.researchgate.net/publication/313673153_Matlab_Implementation_of_Pan_Tompkins_ECG_QRS_detector]
+% Note: Annotating is activity to mark the dataset with specific label. 
+%       In our case the annotating done by removing the wrong R-Peaks detected from the Pan-Tomkins algorithn (because the ecg data is quite noisy)
+
+x = sad.Database.read_participant_data(params, 'sub-010100');
+hrv_result = sad.HRV.time_domain_analysis(params, x(1:300000), 'sub-010100', 1, 0);
+
+% to do HRV computation only run the following line
+hrv_result = sad.HRV.time_domain_analysis(params, x(1:300000), 'sub-010100', 0, 0);
+
+% to R-peaks annotation only run the following line
+sad.HRV.time_domain_analysis(params, x(1:300000), 'sub-010100', 0, 1);
+
+
+
+% -------------------------------------------------------
+% Running batch script for HRV computation
+% -------------------------------------------------------
+
+sad.run_demo()
+
+
+
+
+
+% -------------------------------------------------------
+% Running batch script for Annotation computation
+% -------------------------------------------------------
+% Note: 
+%   - make sure to close all figure before start annotating
+%   - to exit, press [Ctrl+C] in the Command Window
+%
+% Keyboards Key:
+% - [Down Arrow] to Load the previously 'saved' progress (if available)
+% - [Up Arrow] to go the the first 12 seconds
+% - [Right Arrow] to go the next 12 seconds
+% - [Left Arrow] to go the previous 12 seconds
+% - [b] to enable the 'brush' tools (before you can select the data), make sure to disable it again before pressing another key
+% - [r] to remove the selected data from brush tools
+% - [s] to save the current progress
+% - [c] to mark the current Annotation of the participant as "completed"
+
+sad.run_annotation()
+
+
